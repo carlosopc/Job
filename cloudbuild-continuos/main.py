@@ -1,4 +1,4 @@
-# Import dependences and libraries
+# Import libraries
 
 import json
 import os
