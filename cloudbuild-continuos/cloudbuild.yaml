@@ -8,7 +8,7 @@ steps:
 # Deploy container image to Cloud Run as a job
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
-  args: ['run', 'jobs', 'replace', 'job.yaml', "--region=us-central1"]
+  args: ['run', 'jobs', 'replace', 'cloudbuild-continuos/job.yaml', "--region=us-central1"]
 images:
 - gcr.io/devopsdemos/demojob1:$COMMIT_SHA
 options:
