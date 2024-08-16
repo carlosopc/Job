@@ -1,0 +1,20 @@
+steps:
+# Build the container image
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/devopsdemos/demojob1:$COMMIT_SHA', 'clouddeploy']
+# Push the container image to Container Registry
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/devopsdemos/demojob1:$COMMIT_SHA']
+# Create release in Google Cloud Deploy
+- name: gcr.io/google.com/cloudsdktool/cloud-sdk
+  entrypoint: gcloud
+  args:
+    [
+      "deploy", "releases", "create", "rel-${SHORT_SHA}",
+      "--delivery-pipeline", "my-run-demo-app-1",
+      "--region", "us-central1",
+      "--annotations", "commitId=${REVISION_ID}",
+      "--images", "gcr.io/devopsdemos/demojob1:$COMMIT_SHA"
+    ]
+options:
+  logging: CLOUD_LOGGING_ONLY

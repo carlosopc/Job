@@ -1,0 +1,11 @@
+apiVersion: run.googleapis.com/v1
+kind: Job
+metadata:
+  name: demojob
+spec:
+  template:
+    spec:
+      template:
+        spec:
+          containers:
+          - image: gcr.io/devopsdemos/demojob1:latest
